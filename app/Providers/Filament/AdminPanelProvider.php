@@ -27,12 +27,15 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
-            ->brandName('Admin Showroom')          // BARU: nama di sidebar dan tab browser
+            ->brandName('Admin Showroom')              // nama di tab browser dan teks alternatif logo
+            ->brandLogo(asset('logo-web.png'))         // LOGO: logo di sidebar dan halaman login
+            ->brandLogoHeight('2.5rem')                // LOGO: tinggi logo (ubah jika terlalu besar/kecil)
+            ->favicon(asset('logo-web.png'))           // LOGO: ikon di tab browser
             ->colors([
                 'primary' => Color::Amber,
             ])
-            ->sidebarCollapsibleOnDesktop()        // BARU: sidebar bisa diciutkan di laptop
-            ->unsavedChangesAlerts()               // BARU: peringatan jika keluar sebelum menyimpan
+            ->sidebarCollapsibleOnDesktop()            // sidebar bisa diciutkan di laptop
+            ->unsavedChangesAlerts()                   // peringatan jika keluar sebelum menyimpan
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
@@ -40,7 +43,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-                AccountWidget::class,              // DIUBAH: FilamentInfoWidget dihapus
+                AccountWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
