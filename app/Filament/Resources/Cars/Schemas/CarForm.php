@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Cars\Schemas;
 
+use App\Enums\BodyType;
 use App\Enums\CarStatus;
 use App\Enums\FuelType;
 use App\Enums\Transmission;
@@ -34,7 +35,7 @@ class CarForm
                                 ->unique('brands', 'name'),
                         ]),
                     TextInput::make('model')
-                        ->label('Tipe')
+                        ->label('Model')
                         ->placeholder('Contoh: Avanza')
                         ->required()
                         ->maxLength(100),
@@ -67,6 +68,13 @@ class CarForm
                         ->label('Bahan Bakar')
                         ->options(FuelType::class)
                         ->required(),
+                    Select::make('body_type')
+                        ->label('Tipe Bodi')
+                        ->options(BodyType::class),
+                    TextInput::make('color')
+                        ->label('Warna')
+                        ->placeholder('Contoh: Hitam')
+                        ->maxLength(50),
                 ]),
 
             Section::make('Deskripsi dan Foto')
@@ -82,7 +90,7 @@ class CarForm
                         ->reorderable()
                         ->image()
                         ->imageEditor()
-                        ->maxFiles(10)
+                        ->maxFiles(15)
                         ->maxSize(5120)
                         ->panelLayout('grid')
                         ->required()

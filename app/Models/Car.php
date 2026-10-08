@@ -16,6 +16,7 @@ use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use App\Enums\BodyType;
 
 class Car extends Model implements HasMedia
 {
@@ -35,6 +36,7 @@ class Car extends Model implements HasMedia
             'fuel_type' => FuelType::class,
             'is_featured' => 'boolean',
             'is_published' => 'boolean',
+            'body_type' => BodyType::class,
         ];
     }
 
@@ -103,7 +105,8 @@ class Car extends Model implements HasMedia
             ->when($filters['year_min'] ?? null, fn ($q, $v) => $q->where('year', '>=', $v))
             ->when($filters['year_max'] ?? null, fn ($q, $v) => $q->where('year', '<=', $v))
             ->when($filters['price_min'] ?? null, fn ($q, $v) => $q->where('price', '>=', $v))
-            ->when($filters['price_max'] ?? null, fn ($q, $v) => $q->where('price', '<=', $v));
+            ->when($filters['price_max'] ?? null, fn ($q, $v) => $q->where('price', '<=', $v))
+            ->when($filters['body_type'] ?? null, fn ($q, $v) => $q->where('body_type', $v));
     }
 
     public function getRouteKeyName(): string

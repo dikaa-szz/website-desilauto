@@ -2,12 +2,12 @@
 
 @php
     $classes = match ($status->value) {
-        'available' => 'bg-green-100 text-green-800',
-        'booked' => 'bg-yellow-100 text-yellow-800',
-        default => 'bg-red-100 text-red-800',
+        'available' => 'bg-green-500 text-white',
+        'booked' => 'bg-yellow-400 text-yellow-950',
+        default => 'bg-red-500 text-white',
     };
 @endphp
 
-<span {{ $attributes->class(['rounded-full px-2.5 py-0.5 text-xs font-medium', $classes]) }}>
+<span {{ $attributes->class(['inline-flex items-center rounded-full px-2.5 py-1 text-xs font-semibold shadow-sm', $classes]) }}>
     {{ $status->getLabel() }}
 </span>

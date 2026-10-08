@@ -1,8 +1,7 @@
 <form method="GET" action="{{ route('cars.index') }}" class="space-y-4">
-    <div>
-        <label class="mb-1 block text-sm font-medium">Cari</label>
-        <input type="search" name="q" value="{{ $filters['q'] ?? '' }}" placeholder="Avanza, Brio..." class="field">
-    </div>
+    @if (request('sort'))
+        <input type="hidden" name="sort" value="{{ request('sort') }}">
+    @endif
 
     <div>
         <label class="mb-1 block text-sm font-medium">Merek</label>
@@ -15,23 +14,34 @@
     </div>
 
     <div>
-        <label class="mb-1 block text-sm font-medium">Transmisi</label>
-        <select name="transmission" class="field">
+        <label class="mb-1 block text-sm font-medium">Tipe bodi</label>
+        <select name="body_type" class="field">
             <option value="">Semua</option>
-            @foreach ($transmissions as $item)
-                <option value="{{ $item->value }}" @selected(($filters['transmission'] ?? '') === $item->value)>{{ $item->getLabel() }}</option>
+            @foreach ($bodyTypes as $item)
+                <option value="{{ $item->value }}" @selected(($filters['body_type'] ?? '') === $item->value)>{{ $item->getLabel() }}</option>
             @endforeach
         </select>
     </div>
 
-    <div>
-        <label class="mb-1 block text-sm font-medium">Bahan bakar</label>
-        <select name="fuel_type" class="field">
-            <option value="">Semua</option>
-            @foreach ($fuelTypes as $item)
-                <option value="{{ $item->value }}" @selected(($filters['fuel_type'] ?? '') === $item->value)>{{ $item->getLabel() }}</option>
-            @endforeach
-        </select>
+    <div class="grid grid-cols-2 gap-3">
+        <div>
+            <label class="mb-1 block text-sm font-medium">Transmisi</label>
+            <select name="transmission" class="field">
+                <option value="">Semua</option>
+                @foreach ($transmissions as $item)
+                    <option value="{{ $item->value }}" @selected(($filters['transmission'] ?? '') === $item->value)>{{ $item->getLabel() }}</option>
+                @endforeach
+            </select>
+        </div>
+        <div>
+            <label class="mb-1 block text-sm font-medium">Bahan bakar</label>
+            <select name="fuel_type" class="field">
+                <option value="">Semua</option>
+                @foreach ($fuelTypes as $item)
+                    <option value="{{ $item->value }}" @selected(($filters['fuel_type'] ?? '') === $item->value)>{{ $item->getLabel() }}</option>
+                @endforeach
+            </select>
+        </div>
     </div>
 
     <div>
@@ -50,18 +60,12 @@
         </div>
     </div>
 
-    <div>
-        <label class="mb-1 block text-sm font-medium">Urutkan</label>
-        <select name="sort" class="field">
-            <option value="newest" @selected(($filters['sort'] ?? 'newest') === 'newest')>Terbaru</option>
-            <option value="price_asc" @selected(($filters['sort'] ?? '') === 'price_asc')>Harga terendah</option>
-            <option value="price_desc" @selected(($filters['sort'] ?? '') === 'price_desc')>Harga tertinggi</option>
-            <option value="year_desc" @selected(($filters['sort'] ?? '') === 'year_desc')>Tahun terbaru</option>
-        </select>
-    </div>
-
     <div class="flex gap-2 pt-2">
-        <button type="submit" class="flex-1 rounded-lg bg-amber-600 px-4 py-2 text-sm font-semibold text-white hover:bg-amber-700">Terapkan</button>
-        <a href="{{ route('cars.index') }}" class="rounded-lg border px-4 py-2 text-sm hover:bg-gray-50">Reset</a>
+        <button type="submit" class="flex-1 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-brand-700">
+            Terapkan
+        </button>
+        <a href="{{ route('cars.index') }}" class="rounded-xl border border-gray-200 px-4 py-2.5 text-sm font-medium hover:bg-gray-50">
+            Reset
+        </a>
     </div>
 </form>

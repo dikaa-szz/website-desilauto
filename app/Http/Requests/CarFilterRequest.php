@@ -6,7 +6,7 @@ use App\Enums\FuelType;
 use App\Enums\Transmission;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-
+use App\Enums\BodyType;
 class CarFilterRequest extends FormRequest
 {
     public function authorize(): bool
@@ -26,6 +26,7 @@ class CarFilterRequest extends FormRequest
             'price_min' => ['nullable', 'integer', 'min:0'],
             'price_max' => ['nullable', 'integer', 'min:0'],
             'sort' => ['nullable', Rule::in(['newest', 'price_asc', 'price_desc', 'year_desc'])],
+            'body_type' => ['nullable', Rule::enum(BodyType::class)],
         ];
     }
 }

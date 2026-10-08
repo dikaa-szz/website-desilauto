@@ -6,16 +6,37 @@
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    /* Warna merek */
+    --color-brand-50: #fffbeb;
+    --color-brand-100: #fef3c7;
+    --color-brand-400: #fbbf24;
+    --color-brand-500: #f59e0b;
+    --color-brand-600: #d97706;
+    --color-brand-700: #b45309;
 }
 
-/* BARU: sembunyikan elemen Alpine.js sebelum JavaScript siap (mencegah menu/drawer berkedip) */
 [x-cloak] {
     display: none !important;
 }
 
-/* BARU: gaya input form yang dipakai berulang (filter katalog) */
+@utility scrollbar-hide {
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
 @layer components {
     .field {
-        @apply w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-amber-500 focus:outline-none focus:ring-1 focus:ring-amber-500;
+        @apply w-full rounded-xl border border-gray-200 bg-white px-3.5 py-2.5 text-sm transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/20;
     }
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+::selection {
+    background-color: color-mix(in srgb, var(--color-brand-500) 30%, transparent);
 }

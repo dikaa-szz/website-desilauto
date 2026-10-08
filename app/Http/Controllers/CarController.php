@@ -8,7 +8,7 @@ use App\Http\Requests\CarFilterRequest;
 use App\Models\Brand;
 use App\Models\Car;
 use Illuminate\View\View;
-
+use App\Enums\BodyType;
 class CarController extends Controller
 {
     public function index(CarFilterRequest $request): View
@@ -40,6 +40,7 @@ class CarController extends Controller
                 ->get(),
             'transmissions' => Transmission::cases(),
             'fuelTypes' => FuelType::cases(),
+            'bodyTypes' => BodyType::cases(),
         ]);
     }
 
