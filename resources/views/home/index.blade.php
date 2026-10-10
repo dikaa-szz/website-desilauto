@@ -61,7 +61,7 @@
                 @endforeach
             </div>
 
-            {{-- Car image MOBILE (bawah teks, hanya HP & tablet) --}}
+            {{-- Car image MOBILE --}}
             <div class="mt-8 flex justify-center lg:hidden">
                 <img src="{{ asset('images/hero-car.png') }}"
                      alt="Lexus, BMW, Mercedes"
@@ -119,8 +119,8 @@
     <x-about-showroom />
 
     {{-- CTA --}}
-    <section class="mx-auto max-w-7xl px-4 pb-6">
-        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 px-6 py-12 text-center text-white shadow-xl md:py-16">
+    <section class="mx-auto max-w-7xl px-4 py-10 md:py-14">
+        <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-900 via-gray-900 to-gray-800 px-6 py-14 text-center text-white shadow-xl md:px-10 md:py-16">
             <div class="pointer-events-none absolute -right-16 -top-16 h-64 w-64 rounded-full bg-brand-500/20 blur-3xl"></div>
             <div class="pointer-events-none absolute -bottom-20 -left-10 h-56 w-56 rounded-full bg-green-500/10 blur-3xl"></div>
 
@@ -133,7 +133,7 @@
                 </p>
                 <a href="{{ \App\Support\WhatsApp::link('Halo, saya sedang mencari mobil. Bisa dibantu?') }}"
                    target="_blank" rel="noopener"
-                   class="mt-8 inline-flex items-center gap-2.5 rounded-2xl bg-green-600 px-7 py-3.5 text-sm font-semibold shadow-lg shadow-green-900/30 transition hover:bg-green-500 hover:shadow-green-900/40 active:scale-[0.98]">
+                   class="mt-8 inline-flex items-center gap-2.5 rounded-full bg-green-600 px-7 py-3.5 text-sm font-semibold shadow-lg shadow-green-900/30 transition hover:bg-green-500 hover:shadow-green-900/40 active:scale-[0.98]">
                     <x-icon.whatsapp class="h-5 w-5" />
                     Chat via WhatsApp
                 </a>

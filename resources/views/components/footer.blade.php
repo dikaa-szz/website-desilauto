@@ -2,7 +2,7 @@
     $outlets = config('showroom.outlets', [config('showroom.outlet')]);
 @endphp
 
-<footer class="mt-16 border-t border-gray-100 bg-gray-50">
+<footer class="bg-gray-50">
     <div class="mx-auto grid max-w-7xl gap-10 px-4 py-12 text-sm text-gray-600 md:grid-cols-3">
         {{-- Brand --}}
         <div>
@@ -68,7 +68,7 @@
         </div>
     </div>
 
-    <div class="border-t border-gray-200/80 py-5 text-center text-xs text-gray-400">
+    <div class="py-5 text-center text-xs text-gray-400">
         &copy; {{ date('Y') }} {{ config('showroom.name') }}. Hak cipta dilindungi.
     </div>
 </footer>
