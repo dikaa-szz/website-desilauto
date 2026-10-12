@@ -7,7 +7,7 @@
                :float-wa="false">
     <div x-data="{ filterOpen: false }"
          x-effect="document.body.classList.toggle('overflow-hidden', filterOpen)"
-         class="mx-auto max-w-7xl px-4 pb-28 pt-6 lg:pb-12">
+         class="mx-auto max-w-7xl px-4 pb-28 pt-24 lg:pb-12">
 
         {{-- Judul dan pencarian --}}
         <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
@@ -25,7 +25,9 @@
                          fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35M11 18a7 7 0 1 1 0-14 7 7 0 0 1 0 14Z"/>
                     </svg>
-                    <input type="search" name="q" value="{{ $filters['q'] ?? '' }}" placeholder="Cari merek atau model..." class="field pl-10">
+                    <input type="search" name="q" value="{{ $filters['q'] ?? '' }}"
+                           placeholder="Cari merek atau model..."
+                           class="field pl-10">
                 </form>
 
                 <div class="hidden w-48 lg:block">
@@ -106,13 +108,15 @@
                  class="absolute inset-x-0 bottom-0 max-h-[88vh] overflow-y-auto rounded-t-3xl bg-white p-5 pb-8">
                 <div class="mb-4 flex items-center justify-between">
                     <h2 class="text-lg font-semibold">Filter</h2>
-                    <button type="button" @click="filterOpen = false" aria-label="Tutup" class="text-3xl leading-none text-gray-400">&times;</button>
+                    <button type="button" @click="filterOpen = false" aria-label="Tutup"
+                            class="text-3xl leading-none text-gray-400">&times;</button>
                 </div>
                 @include('cars.partials.filter')
             </div>
         </div>
     </div>
-        {{-- Teks tentang showroom: hanya di halaman pertama tanpa filter --}}
+
+    {{-- Tentang showroom: hanya di halaman pertama tanpa filter --}}
     @if ($cars->onFirstPage() && $activeFilters === 0)
         <x-about-showroom />
     @endif
