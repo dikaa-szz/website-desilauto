@@ -1,66 +1,58 @@
 <x-layouts.app :title="config('showroom.name') . ' | Showroom Mobil'">
 
     {{-- Hero --}}
-    <section class="relative overflow-hidden bg-[#0a1628] text-white">
-        <div class="pointer-events-none absolute -left-32 -top-32 h-96 w-96 rounded-full bg-blue-600/15 blur-3xl"></div>
-        <div class="pointer-events-none absolute -bottom-40 -right-20 h-[28rem] w-[28rem] rounded-full bg-indigo-500/10 blur-3xl"></div>
-
-        <div class="pointer-events-none absolute inset-y-0 right-0 hidden w-[58%] xl:w-[55%] lg:block">
+    <section class="relative flex min-h-[100svh] min-h-screen items-center justify-center overflow-hidden bg-[#0a1628]">
+        <div class="absolute inset-0">
             <img src="{{ asset('images/hero-car.png') }}"
                  alt="Lexus, BMW, Mercedes"
-                 class="absolute bottom-0 right-0 h-full max-h-[480px] w-auto object-contain object-right-bottom opacity-95 drop-shadow-2xl"
+                 class="h-full w-full object-center
+                        object-contain
+                        md:scale-105 md:object-cover"
                  loading="eager">
-            <div class="absolute inset-0 bg-gradient-to-r from-[#0a1628] via-[#0a1628]/60 to-transparent"></div>
+            <div class="absolute inset-0 bg-[#0a1628]/40 md:bg-[#0a1628]/45"></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-[#0a1628]/75 via-[#0a1628]/25 to-[#0a1628]/90"></div>
         </div>
 
-        <div class="relative mx-auto max-w-7xl px-4 pt-28 pb-10 md:pt-32 md:pb-24 lg:py-32">
-            <div class="max-w-xl lg:max-w-md xl:max-w-lg">
-                <h1 class="text-4xl font-bold leading-[1.15] tracking-tight md:text-5xl lg:text-6xl">
-                    Temukan mobil<br class="hidden sm:block">
-                    <span class="text-sky-400">impian Anda</span>
-                </h1>
-                <p class="mt-5 max-w-md text-base leading-relaxed text-slate-300 md:text-lg">
-                    Pilihan mobil dengan kondisi terawat. Lihat katalog, bandingkan, lalu hubungi kami langsung via WhatsApp.
-                </p>
-            </div>
+        <div class="relative z-10 mx-auto w-full max-w-4xl px-4 pb-16 pt-28 text-center md:pt-32">
+            <h1 class="text-4xl font-extrabold uppercase leading-[1.05] tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+                <span class="hero-title-gradient">
+                    Temukan Mobil<br>
+                    Impian Anda Disini !!
+                </span>
+            </h1>
+
+            <p class="mx-auto mt-5 max-w-xl text-base font-bold leading-relaxed text-white drop-shadow-[0_1px_8px_rgba(0,0,0,0.7)] md:text-lg">
+                Pilihan mobil dengan kondisi terawat. Lihat katalog, bandingkan,
+                lalu hubungi kami langsung via WhatsApp.
+            </p>
 
             <form method="GET" action="{{ route('cars.index') }}"
-                  class="mt-8 flex max-w-xl items-center gap-2 rounded-2xl bg-white p-1.5 shadow-2xl shadow-black/40 ring-1 ring-white/10">
-                <div class="flex flex-1 items-center gap-2 pl-3">
-                    <svg class="h-5 w-5 shrink-0 text-gray-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  class="mx-auto mt-8 flex max-w-lg items-center gap-2 rounded-full border border-white/30 bg-black/30 p-1.5 shadow-2xl backdrop-blur-md">
+                <div class="flex flex-1 items-center gap-2 pl-4">
+                    <svg class="h-5 w-5 shrink-0 text-white/80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z"/>
                     </svg>
                     <input type="search" name="q"
                            placeholder="Cari BMW, Lexus atau lainnya..."
-                           class="min-w-0 flex-1 border-0 bg-transparent py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-0">
+                           class="min-w-0 flex-1 border-0 bg-transparent py-3 text-sm text-white placeholder-white/60 focus:outline-none focus:ring-0">
                 </div>
                 <button type="submit"
-                        class="shrink-0 rounded-xl bg-[#0a1628] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#12203a] active:scale-[0.98]">
+                        class="shrink-0 rounded-full bg-white px-6 py-3 text-sm font-semibold text-[#0a1628] transition hover:bg-sky-50 active:scale-[0.98]">
                     Cari
                 </button>
             </form>
 
-            <div class="mt-5 flex flex-wrap gap-2.5">
+            <div class="mt-6 flex flex-wrap items-center justify-center gap-2.5">
                 @foreach ([
                     'SUV'   => ['body_type' => 'suv'],
                     'MPV'   => ['body_type' => 'mpv'],
                     'Matic' => ['transmission' => 'automatic'],
                 ] as $label => $params)
                     <a href="{{ route('cars.index', $params) }}"
-                       class="group inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur-sm transition hover:border-white/30 hover:bg-white/15">
+                       class="inline-flex items-center gap-1.5 rounded-full border border-white/25 bg-black/25 px-4 py-2 text-sm font-medium text-white backdrop-blur-sm transition hover:bg-white/20">
                         {{ $label }}
-                        <svg class="h-3.5 w-3.5 opacity-60 transition group-hover:translate-x-0.5 group-hover:opacity-100" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-                        </svg>
                     </a>
                 @endforeach
-            </div>
-
-            <div class="mt-8 flex justify-center lg:hidden">
-                <img src="{{ asset('images/hero-car.png') }}"
-                     alt="Lexus, BMW, Mercedes"
-                     class="h-auto w-full max-w-md object-contain drop-shadow-xl opacity-95"
-                     loading="eager">
             </div>
         </div>
     </section>
@@ -83,7 +75,7 @@
         </div>
     </section>
 
-    {{-- Mobil unggulan (navy) --}}
+    {{-- Mobil unggulan --}}
     @if ($featured->isNotEmpty())
         <section class="bg-[#0a1628] py-14 text-white md:py-16">
             <div class="mx-auto max-w-7xl px-4">
@@ -102,8 +94,8 @@
         </section>
     @endif
 
-    {{-- Baru masuk (navy) --}}
-    <section class="bg-[#0a1628] py-14 text-white md:py-16">
+    {{-- Baru masuk --}}
+    <section class="bg-[#06101f] py-14 text-white md:py-16">
         <div class="mx-auto max-w-7xl px-4">
             <div class="flex items-end justify-between gap-4">
                 <div>

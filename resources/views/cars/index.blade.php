@@ -116,11 +116,6 @@
         </div>
     </div>
 
-    {{-- Tentang showroom: hanya di halaman pertama tanpa filter --}}
-    @if ($cars->onFirstPage() && $activeFilters === 0)
-        <x-about-showroom />
-    @endif
-
-    {{-- Ruang agar bar Filter/Urutkan di HP tidak menutupi footer --}}
+    {{-- Spacer bar bawah HP --}}
     <div class="h-20 lg:hidden"></div>
 </x-layouts.app>

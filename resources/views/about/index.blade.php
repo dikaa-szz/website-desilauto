@@ -11,13 +11,9 @@
         </div>
 
         <div class="relative mx-auto max-w-7xl px-4 text-center">
-            <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-sky-300 backdrop-blur-sm">
-                <span class="relative flex h-2 w-2">
-                    <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-60"></span>
-                    <span class="relative inline-flex h-2 w-2 rounded-full bg-sky-400"></span>
-                </span>
-                Tentang Kami
-            </span>
+            {{-- <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-sky-300 backdrop-blur-sm">
+                <span class="relative flex h-2 w-2"></span>
+            </span> --}}
 
             <h1 class="mx-auto mt-6 max-w-3xl text-4xl font-bold leading-tight tracking-tight md:text-6xl">
                 Lebih dari sekadar

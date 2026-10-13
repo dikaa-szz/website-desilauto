@@ -1,9 +1,15 @@
+@php
+    $isTransparent = request()->routeIs('home') || request()->routeIs('about');
+@endphp
+
 <header x-data="{ open: false, scrolled: false }"
         x-init="scrolled = window.scrollY > 20; window.addEventListener('scroll', () => { scrolled = window.scrollY > 20 })"
-        class="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl transition-all duration-300"
-        :class="scrolled
-            ? 'bg-[#0a1628]/90 border-b border-white/10 shadow-lg shadow-black/20'
-            : 'bg-[#0a1628]/50 border-b border-transparent'">
+        class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+        :class="@js($isTransparent)
+            ? (scrolled
+                ? 'bg-[#0a1628]/80 border-b border-white/10 shadow-lg shadow-black/20 backdrop-blur-xl'
+                : 'bg-transparent border-b border-transparent backdrop-blur-0')
+            : 'bg-[#0a1628] border-b border-white/10 shadow-md backdrop-blur-xl'">
 
     <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:h-[72px]">
         {{-- Logo --}}
