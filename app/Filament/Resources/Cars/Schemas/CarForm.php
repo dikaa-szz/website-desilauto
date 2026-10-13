@@ -90,7 +90,7 @@ class CarForm
                         ->reorderable()
                         ->image()
                         ->imageEditor()
-                        ->maxFiles(20)
+                        ->maxFiles(30)
                         ->maxSize(10240)
                         ->panelLayout('grid')
                         ->required()
