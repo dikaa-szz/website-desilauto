@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Enums\BodyType;
 use App\Enums\CarStatus;
 use App\Enums\FuelType;
-use App\Enums\Transmission;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,7 +16,6 @@ use Spatie\Image\Enums\Fit;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
-use App\Enums\BodyType;
 
 class Car extends Model implements HasMedia
 {
@@ -32,11 +31,14 @@ class Car extends Model implements HasMedia
     {
         return [
             'status' => CarStatus::class,
-            'transmission' => Transmission::class,
+            'transmission' => 'string', // bebas ketik (bukan Enum)
             'fuel_type' => FuelType::class,
             'is_featured' => 'boolean',
             'is_published' => 'boolean',
             'body_type' => BodyType::class,
+            'price' => 'integer',
+            'year' => 'integer',
+            'mileage' => 'integer',
         ];
     }
 
