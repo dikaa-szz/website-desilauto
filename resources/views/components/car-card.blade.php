@@ -3,6 +3,15 @@
 @php
     $photo = $car->getFirstMediaUrl('photos', 'thumb');
     $isSold = $car->status === \App\Enums\CarStatus::Sold;
+
+    // Transmisi sudah string; fuel_type masih Enum
+    $transmissionLabel = is_object($car->transmission)
+        ? $car->transmission->getLabel()
+        : $car->transmission;
+
+    $fuelLabel = is_object($car->fuel_type)
+        ? $car->fuel_type->getLabel()
+        : $car->fuel_type;
 @endphp
 
 <a href="{{ route('cars.show', $car) }}"
@@ -32,8 +41,8 @@
         <p class="mt-2 text-xs text-gray-500">
             {{ collect([
                 $car->mileage ? number_format($car->mileage, 0, ',', '.') . ' km' : null,
-                $car->transmission->getLabel(),
-                $car->fuel_type->getLabel(),
+                $transmissionLabel,
+                $fuelLabel,
             ])->filter()->implode(' · ') }}
         </p>
 
