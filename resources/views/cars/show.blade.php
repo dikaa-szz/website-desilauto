@@ -7,6 +7,8 @@
     })->values();
 
     $isSold = $car->status === \App\Enums\CarStatus::Sold;
+    // Badge status hanya tampil jika bukan "Tersedia" (Booking / Terjual)
+    $showStatusBadge = $car->status !== \App\Enums\CarStatus::Available;
     $url = route('cars.show', $car);
 
     $waLink = \App\Support\WhatsApp::link("Halo, saya tertarik dengan {$car->title} ({$car->price_formatted}). Apakah masih tersedia?\n{$url}");
@@ -45,7 +47,7 @@
                :description="\Illuminate\Support\Str::limit($car->title . ' - ' . $car->price_formatted . '. ' . (string) $car->description, 155)"
                :float-wa="false">
 
-    <div class="mx-auto max-w-6xl px-4 pb-28 pt-6 lg:pb-12 lg:pt-8"
+    <div class="mx-auto max-w-7xl px-4 pb-28 pt-8 sm:px-6 lg:px-8 lg:pb-16 lg:pt-10"
          x-data="{
             lightbox: false,
             current: 0,
@@ -60,25 +62,29 @@
          @keydown.left.window="if (lightbox) prev()">
 
         {{-- Judul --}}
-        <div class="mb-5">
+        <div class="mb-6">
             <a href="{{ route('cars.index') }}" class="mb-3 inline-flex items-center gap-1 text-sm text-gray-500 transition hover:text-brand-600">
                 <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
                 </svg>
                 Kembali ke katalog
             </a>
-            <div class="flex flex-wrap items-center gap-2">
-                <x-status-badge :status="$car->status" />
-                @if ($car->is_featured)
-                    <span class="inline-flex items-center rounded-full bg-brand-600 px-2.5 py-1 text-xs font-semibold text-white">Unggulan</span>
-                @endif
-            </div>
-            <h1 class="mt-2 text-2xl font-bold leading-tight tracking-tight lg:text-3xl">{{ $car->title }}</h1>
+            @if ($showStatusBadge || $car->is_featured)
+                <div class="flex flex-wrap items-center gap-2">
+                    @if ($showStatusBadge)
+                        <x-status-badge :status="$car->status" />
+                    @endif
+                    @if ($car->is_featured)
+                        <span class="inline-flex items-center rounded-full bg-brand-600 px-2.5 py-1 text-xs font-semibold text-white">Unggulan</span>
+                    @endif
+                </div>
+            @endif
+            <h1 class="mt-3 text-2xl font-bold leading-tight tracking-tight lg:text-3xl">{{ $car->title }}</h1>
             <p class="mt-1 text-sm text-gray-500">{{ $meta->implode(' · ') }}</p>
         </div>
 
         {{-- Galeri utama (layout seperti gambar 1) --}}
-        <div class="grid gap-3 lg:grid-cols-5">
+        <div class="grid gap-4 lg:grid-cols-5">
             {{-- Foto utama --}}
             <div class="relative lg:col-span-3">
                 @if ($images->isNotEmpty())
@@ -99,15 +105,15 @@
             </div>
 
             {{-- Grid thumbnail kanan --}}
-            <div class="grid grid-cols-2 gap-3 lg:col-span-2">
+            <div class="grid grid-cols-2 grid-rows-2 gap-4 lg:col-span-2">
                 @foreach ($images->slice(1, 4) as $index => $image)
                     @php $realIndex = $index + 1; @endphp
                     <button type="button" @click="open({{ $realIndex }})"
-                            class="group relative overflow-hidden rounded-xl bg-gray-100">
+                            class="group relative aspect-[4/3] overflow-hidden rounded-xl bg-gray-100 lg:aspect-auto">
                         <img src="{{ $image['thumb'] }}"
                              alt=""
                              loading="lazy"
-                             class="aspect-[4/3] w-full object-cover transition duration-300 group-hover:scale-105">
+                             class="absolute inset-0 h-full w-full object-cover transition duration-300 group-hover:scale-105">
                         {{-- Overlay +N jika foto terakhir & masih ada sisa --}}
                         @if ($loop->last && $images->count() > 5)
                             <span class="absolute inset-0 flex items-center justify-center bg-black/50 text-lg font-bold text-white">
@@ -119,18 +125,18 @@
 
                 {{-- Isi kosong jika foto < 5 --}}
                 @for ($i = max($images->count() - 1, 0); $i < 4; $i++)
-                    <div class="aspect-[4/3] rounded-xl bg-gray-50 ring-1 ring-dashed ring-gray-200"></div>
+                    <div class="aspect-[4/3] rounded-xl bg-gray-50 ring-1 ring-dashed ring-gray-200 lg:aspect-auto"></div>
                 @endfor
             </div>
         </div>
 
         {{-- Info + aksi --}}
-        <div class="mt-6 grid gap-6 lg:grid-cols-5">
+        <div class="mt-8 grid gap-8 lg:mt-10 lg:grid-cols-5">
             <div class="lg:col-span-3">
                 {{-- Spesifikasi --}}
                 <section>
                     <h2 class="text-lg font-bold">Detail Spesifikasi</h2>
-                    <dl class="mt-4 grid grid-cols-2 gap-x-6 gap-y-5 rounded-2xl bg-white p-5 ring-1 ring-gray-100 sm:grid-cols-3">
+                    <dl class="mt-4 grid grid-cols-2 gap-x-6 gap-y-6 rounded-2xl bg-white p-6 ring-1 ring-gray-100 sm:grid-cols-3">
                         @foreach ($specs as $label => $value)
                             @if ($value)
                                 <div>
@@ -146,7 +152,7 @@
                 @if ($car->description)
                     <section class="mt-8">
                         <h2 class="text-lg font-bold">Deskripsi</h2>
-                        <div class="mt-4 rounded-2xl bg-white p-5 ring-1 ring-gray-100">
+                        <div class="mt-4 rounded-2xl bg-white p-6 ring-1 ring-gray-100">
                             <p class="whitespace-pre-line leading-relaxed text-gray-700">{{ $car->description }}</p>
                         </div>
                     </section>
@@ -183,7 +189,7 @@
 
         {{-- Mobil terkait --}}
         @if ($related->isNotEmpty())
-            <section class="mt-12">
+            <section class="mt-14">
                 <h2 class="text-lg font-bold">Mobil {{ $car->brand->name }} Lainnya</h2>
                 <div class="mt-4 grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
                     @foreach ($related as $item)
