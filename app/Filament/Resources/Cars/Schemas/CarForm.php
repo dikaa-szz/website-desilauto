@@ -144,7 +144,12 @@ class CarForm
                             ->multiple()
                             ->reorderable()
                             ->image()
-                            ->imageEditor()
+                            // Kecilkan foto di browser sebelum diupload
+                            // (website hanya memakai maksimal 1200 px)
+                            ->imageResizeMode('contain')
+                            ->imageResizeTargetWidth('1600')
+                            ->imageResizeTargetHeight('1200')
+                            ->imageResizeUpscale(false)
                             ->maxFiles(50)
                             ->maxSize(10240)
                             ->panelLayout('grid')

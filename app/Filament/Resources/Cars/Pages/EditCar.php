@@ -20,4 +20,9 @@ class EditCar extends EditRecord
             ForceDeleteAction::make(),
         ];
     }
+
+    protected function beforeSave(): void
+    {
+        set_time_limit(300);
+    }
 }

@@ -12,10 +12,20 @@
     $waLink = \App\Support\WhatsApp::link("Halo, saya tertarik dengan {$car->title} ({$car->price_formatted}). Apakah masih tersedia?\n{$url}");
     $tradeInLink = \App\Support\WhatsApp::link("Halo, saya tertarik dengan {$car->title} dan ingin tanya tukar tambah.\n{$url}");
 
+    // Transmisi sekarang teks bebas (bukan Enum); fuel_type tetap Enum.
+    // Pengecekan is_object membuat kode aman untuk keduanya.
+    $transmissionLabel = is_object($car->transmission)
+        ? $car->transmission->getLabel()
+        : $car->transmission;
+
+    $fuelLabel = is_object($car->fuel_type)
+        ? $car->fuel_type->getLabel()
+        : $car->fuel_type;
+
     $meta = collect([
         $car->mileage ? number_format($car->mileage, 0, ',', '.') . ' km' : null,
-        $car->transmission->getLabel(),
-        $car->fuel_type->getLabel(),
+        $transmissionLabel,
+        $fuelLabel,
     ])->filter();
 
     $specs = [
@@ -24,8 +34,8 @@
         'Varian' => $car->variant,
         'Tahun' => $car->year,
         'Kilometer' => $car->mileage ? number_format($car->mileage, 0, ',', '.') . ' km' : null,
-        'Transmisi' => $car->transmission->getLabel(),
-        'Bahan Bakar' => $car->fuel_type->getLabel(),
+        'Transmisi' => $transmissionLabel,
+        'Bahan Bakar' => $fuelLabel,
         'Tipe Bodi' => $car->body_type?->getLabel(),
         'Warna' => $car->color,
     ];
@@ -108,7 +118,7 @@
                 @endforeach
 
                 {{-- Isi kosong jika foto < 5 --}}
-                @for ($i = $images->count() - 1; $i < 4; $i++)
+                @for ($i = max($images->count() - 1, 0); $i < 4; $i++)
                     <div class="aspect-[4/3] rounded-xl bg-gray-50 ring-1 ring-dashed ring-gray-200"></div>
                 @endfor
             </div>
