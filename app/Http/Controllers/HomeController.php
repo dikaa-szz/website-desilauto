@@ -17,12 +17,12 @@ class HomeController extends Controller
             ->limit(6)
             ->get();
 
-        // Landing page hanya menampilkan 3 mobil terbaru, sisanya ada di katalog
+        // Landing page menampilkan 5 mobil terbaru, sisanya ada di katalog
         $latest = Car::query()
             ->published()
             ->with(['brand', 'media'])
             ->latest()
-            ->limit(3)
+            ->limit(5)
             ->get();
 
         return view('home.index', compact('featured', 'latest'));
