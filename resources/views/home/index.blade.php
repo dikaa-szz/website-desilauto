@@ -166,8 +166,8 @@
                 </a>
             </div>
 
-            <div class="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                @forelse ($latest as $car)
+            <div class="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
+                @forelse ($latest->take(5) as $car)
                     <x-car-card :car="$car" />
                 @empty
                     <p class="col-span-full rounded-lg border border-dashed border-slate-300 py-16 text-center text-slate-500">
@@ -221,32 +221,21 @@
 
             <div class="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
                 @foreach ($outlets as $outlet)
-                    <div class="flex flex-col rounded-xl border border-slate-200 bg-white p-6 md:p-7">
-                        <div class="flex items-start gap-4">
-                            <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-[#f9b700]">
+                    <div class="relative overflow-hidden rounded-xl bg-slate-900 p-7 md:p-8">
+                        <span class="absolute inset-y-0 left-0 w-1.5 bg-[#f9b700]" aria-hidden="true"></span>
+
+                        <div class="flex items-center justify-between">
+                            <span class="flex h-12 w-12 items-center justify-center rounded-lg bg-[#f9b700] text-slate-900">
                                 <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                                 </svg>
                             </span>
-                            <div>
-                                <h3 class="text-lg font-semibold text-slate-900">{{ $outlet['name'] }}</h3>
-                                <p class="mt-1.5 text-sm leading-relaxed text-slate-600">{{ $outlet['address'] }}</p>
-                            </div>
+                            <span class="text-4xl font-bold text-white/15" aria-hidden="true">0{{ $loop->iteration }}</span>
                         </div>
 
-                        <div class="mt-6 flex flex-wrap gap-3 border-t border-slate-100 pt-5">
-                            <a href="{{ route('about') }}"
-                               class="inline-flex items-center rounded-md bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2">
-                                Lihat lokasi
-                            </a>
-                            <a href="{{ \App\Support\WhatsApp::link('Halo, saya ingin berkunjung ke ' . $outlet['name'] . '.') }}"
-                               target="_blank" rel="noopener"
-                               class="inline-flex items-center gap-2 rounded-md border border-slate-300 px-4 py-2.5 text-sm font-semibold text-slate-800 transition hover:border-slate-900 focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2">
-                                <x-icon.whatsapp class="h-4 w-4 text-green-600" />
-                                Chat WhatsApp
-                            </a>
-                        </div>
+                        <h3 class="mt-6 text-xl font-semibold text-white">{{ $outlet['name'] }}</h3>
+                        <p class="mt-2 max-w-md text-sm leading-relaxed text-slate-300">{{ $outlet['address'] }}</p>
                     </div>
                 @endforeach
             </div>
