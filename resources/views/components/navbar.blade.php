@@ -7,8 +7,8 @@
         class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
         :class="@js($isTransparent)
             ? (scrolled
-                ? 'bg-[#0a1628]/80 border-b border-white/10 shadow-lg shadow-black/20 backdrop-blur-xl'
-                : 'bg-transparent border-b border-transparent backdrop-blur-0')
+                ? 'bg-[#0a1628]/90 border-b border-white/10 shadow-lg shadow-black/20 backdrop-blur-xl'
+                : 'bg-transparent border-b border-transparent')
             : 'bg-[#0a1628] border-b border-white/10 shadow-md backdrop-blur-xl'">
 
     <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:h-[72px]">
@@ -22,32 +22,33 @@
             </span>
         </a>
 
-        {{-- Menu desktop --}}
+        {{-- Desktop Menu --}}
         <nav class="hidden items-center gap-1 text-sm font-medium md:flex">
             <a href="{{ route('home') }}"
                class="rounded-full px-4 py-2 transition
                       {{ request()->routeIs('home')
                           ? 'bg-white/15 text-white'
-                          : 'text-white/75 hover:bg-white/10 hover:text-white' }}">
+                          : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
                 Beranda
             </a>
             <a href="{{ route('cars.index') }}"
                class="rounded-full px-4 py-2 transition
                       {{ request()->routeIs('cars.*')
                           ? 'bg-white/15 text-white'
-                          : 'text-white/75 hover:bg-white/10 hover:text-white' }}">
+                          : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
                 Katalog
             </a>
             <a href="{{ route('about') }}"
                class="rounded-full px-4 py-2 transition
                       {{ request()->routeIs('about')
                           ? 'bg-white/15 text-white'
-                          : 'text-white/75 hover:bg-white/10 hover:text-white' }}">
+                          : 'text-white/70 hover:bg-white/10 hover:text-white' }}">
                 Tentang Kami
             </a>
+
             <a href="{{ \App\Support\WhatsApp::link('Halo, saya ingin bertanya tentang mobil di showroom.') }}"
                target="_blank" rel="noopener"
-               class="ml-2 inline-flex items-center gap-2 rounded-full bg-green-600/90 px-5 py-2.5 text-white shadow-sm transition hover:bg-green-500 active:scale-[0.98]">
+               class="ml-3 inline-flex items-center gap-2 rounded-full bg-green-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-green-900/20 transition hover:bg-green-500 active:scale-[0.98]">
                 <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M12 2a10 10 0 00-8.6 15.1L2 22l5-1.3A10 10 0 1012 2z"/>
                 </svg>
@@ -55,7 +56,7 @@
             </a>
         </nav>
 
-        {{-- Mobile toggle --}}
+        {{-- Mobile Toggle --}}
         <button type="button"
                 class="inline-flex h-10 w-10 items-center justify-center rounded-full text-white/90 transition hover:bg-white/10 md:hidden"
                 @click="open = !open"
@@ -70,7 +71,7 @@
         </button>
     </div>
 
-    {{-- Mobile menu --}}
+    {{-- Mobile Menu --}}
     <nav x-show="open"
          x-cloak
          x-transition:enter="transition ease-out duration-200"
